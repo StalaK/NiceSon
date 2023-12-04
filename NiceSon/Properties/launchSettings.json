@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "NiceSon": {
+      "commandName": "Project",
+      "commandLineArgs": "'{\"something\":\"value\"}' -t"
+    }
+  }
+}

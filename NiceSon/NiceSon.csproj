@@ -10,6 +10,7 @@
 	<PackageOutputPath>./nupkg</PackageOutputPath>
 	<PackageReadmeFile>./README.md</PackageReadmeFile>
 	<PackageLicenseFile>./LICENSE.txt</PackageLicenseFile>
+	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,7 +1,6 @@
 ﻿using Formatter;
 using System.CommandLine;
 using System.CommandLine.NamingConventionBinder;
-using System.Diagnostics;
 
 namespace NiceSon;
 
@@ -44,16 +43,7 @@ internal static class Program
 
         if (noClipboard != true)
         {
-            var powershell = new Process
-            {
-                StartInfo = new ProcessStartInfo
-                {
-                    FileName = "powershell",
-                    Arguments = $"-command \"Set-Clipboard -Value \\\"{formattedJson}\\\"\""
-                }
-            };
-            powershell.Start();
-            powershell.WaitForExit();
+            WindowsClipboard.SetClipboardData(formattedJson);
 
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("Formatted JSON copied to clipboard");
