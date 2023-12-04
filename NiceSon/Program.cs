@@ -1,6 +1,7 @@
 ﻿using Formatter;
 using System.CommandLine;
 using System.CommandLine.NamingConventionBinder;
+using System.Runtime.InteropServices;
 
 namespace NiceSon;
 
@@ -43,6 +44,13 @@ internal static class Program
 
         if (noClipboard != true)
         {
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("Formatting directly to the clipboard is currently only supported in Windows. Please consider running with the --no-clipboard option.");
+                Console.ResetColor();
+            }
+
             WindowsClipboard.SetClipboardData(formattedJson);
 
             Console.ForegroundColor = ConsoleColor.DarkGreen;
