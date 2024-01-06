@@ -13,10 +13,13 @@ public static class JsonFormatter
 
         for (int i = 0; i < json.Length; i++)
         {
+            var setPrevious = true;
             var c = json[i];
 
             if (!inValueString && previous == '"' && c != ':' && c != ',' && c != ' ' && c != '}')
+            {
                 throw new Exception($"Unexpected character at {i} - '{c}'.");
+            }
 
             switch (c)
             {
@@ -65,6 +68,23 @@ public static class JsonFormatter
                     break;
 
                 case '\"':
+                    if (i + 1 < json.Length
+                        &&
+                        (
+                            (previous == ':' && json[i + 1] == '{')
+                            || (previous == ':' && json[i + 1] == '[')
+                            || (previous == '}' && json[i + 1] == ',')
+                            || (previous == '}' && json[i + 1] == ']')
+                            || (previous == ']' && json[i + 1] == '}')
+                            || (previous == ']' && json[i + 1] == ',')
+                            || (previous == ',' && json[i + 1] == '{')
+                            || (previous == ',' && json[i + 1] == '[')
+                        ))
+                    {
+                        setPrevious = false;
+                        break;
+                    }
+
                     formattedJson.Append(c);
                     inValueString = !inValueString;
                     break;
@@ -84,11 +104,17 @@ public static class JsonFormatter
                             || previous == ']'
                             || previous == '"'
                             || previous == ':'))
+                    {
                         break;
+                    }
                     else if (!inValueString && i + 1 < json.Length && (json[i + 1] == ' ' || json[i + 1] == ','))
+                    {
                         break;
+                    }
                     else
+                    {
                         formattedJson.Append(c);
+                    }
 
                     break;
 
@@ -99,24 +125,35 @@ public static class JsonFormatter
                         formattedJson.Append(' ');
                     }
                     else
+                    {
                         throw new Exception($"Invalid JSON error at char {i} - {previous}");
+                    }
 
                     break;
 
                 default:
                     if (!inValueString && previous == ':')
+                    {
                         formattedJson.Append(' ');
+                    }
                     else
+                    {
                         formattedJson.Append(c);
+                    }
 
                     break;
             }
 
-            previous = c;
+            if (setPrevious)
+            {
+                previous = c;
+            }
         }
 
         if (indentationLevel != 0)
+        {
             throw new Exception("Invalid JSON format");
+        }
 
         return formattedJson.ToString();
     }

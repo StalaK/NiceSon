@@ -11,6 +11,14 @@
 	<PackageReadmeFile>./README.md</PackageReadmeFile>
 	<PackageLicenseFile>./LICENSE.txt</PackageLicenseFile>
 	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	<PackageId>NiceSon</PackageId>
+	<PackageVersion>1.0.2</PackageVersion>
+	<Authors>Josh Hughes</Authors>
+	<Description>Make JSON look nice</Description>
+	<PackageProjectUrl>https://github.com/StalaK/NiceSon</PackageProjectUrl>
+	<RepositoryUrl>https://github.com/StalaK/NiceSon</RepositoryUrl>
+	<PackageTags>JSON Formatter Prettify</PackageTags>
+	<PackageReleaseNotes>Fix errors around nested arrays and objects</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
